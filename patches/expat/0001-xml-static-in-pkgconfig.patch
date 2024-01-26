@@ -1,0 +1,25 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d9219e8d..3b53c0aa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -558,6 +558,10 @@ if(EXPAT_BUILD_PKGCONFIG)
+         endif()
+     endforeach()
+
++    if(NOT EXPAT_SHARED_LIBS)
++        set_property(TARGET expat PROPERTY "pkgconfig_cflags" "-DXML_STATIC")
++    endif()
++
+     file(GENERATE
+         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/expat.pc
+         INPUT ${PROJECT_SOURCE_DIR}/expat.pc.cmake)
+diff --git a/expat.pc.cmake b/expat.pc.cmake
+index da7a0549..2e465d06 100644
+--- a/expat.pc.cmake
++++ b/expat.pc.cmake
+@@ -9,4 +9,4 @@ Description: expat XML parser
+ URL: https://libexpat.github.io/
+ Libs: -L${libdir} -l$<TARGET_PROPERTY:expat,pkgconfig_$<LOWER_CASE:$<CONFIG>>_output_name>
+ Libs.private: $<TARGET_PROPERTY:expat,pkgconfig_libm>
+-Cflags: -I${includedir}
++Cflags: -I${includedir} $<TARGET_PROPERTY:expat,pkgconfig_cflags>
