@@ -1,0 +1,4 @@
+[submodule "submodules/fontconfig"]
+	path = submodules/fontconfig
+	url = https://gitlab.freedesktop.org/hailey/fontconfig.git
+	branch = static
