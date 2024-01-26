@@ -1,0 +1,67 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$(dirname "$0")"
+source common.sh
+
+BUILDER_ROOT="$(pwd)"
+
+build-project() {
+    local project="$1"
+    local project_dir="$BUILD_DIR/$project"
+    local build_script="$(pwd)/projects/${project}.sh"
+    local common_lib="$(pwd)/common-project.sh"
+
+    mkdir -p "$project_dir"
+
+    log "Building $project"
+    (
+        cd "$project_dir"
+        mkdir -p build
+
+        source "$common_lib"
+        source "$build_script"
+
+        log "Preparing $project $version"
+        invoke-project-function prepare
+
+        log "Configuring $project $version"
+        invoke-project-function configure
+
+        log "Building $project $version"
+        invoke-project-function build
+
+        log "Installing $project $version"
+        invoke-project-function install
+    )
+}
+
+invoke-project-function() {
+    local func="$1"
+    [[ "$(type -t "$func")" == "function" ]] || die "$func is not a function"
+    ( "$func" )
+}
+
+mkdir -p "$TARGET_DIR"
+
+if [ "$#" == 0 ]; then
+    echo "specify project to build" >&2
+    exit 1
+fi
+
+if [[ "$1" == "all" ]]; then
+    # build projects in dependency order
+    build-project zlib
+    build-project glib
+    build-project libpng
+    build-project libjpeg-turbo
+    build-project libtiff
+    build-project gdk-pixbuf
+else
+    build-project "$1"
+fi
+
+# build-project glib
+# build-project gobject-introspection
+# build-project libpng
+# build-project glib

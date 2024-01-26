@@ -1,0 +1,13 @@
+diff --git a/gdk-pixbuf/meson.build b/gdk-pixbuf/meson.build
+index a11926eee..3a863759c 100644
+--- a/gdk-pixbuf/meson.build
++++ b/gdk-pixbuf/meson.build
+@@ -269,7 +269,7 @@ endif
+ gdkpixbuf_dep = declare_dependency(
+   link_with: gdkpixbuf,
+   include_directories: root_inc,
+-  dependencies: gdk_pixbuf_deps,
++  dependencies: included_loaders_deps + gdk_pixbuf_deps,
+   sources: [ gdkpixbuf_enum_h, built_girs ],
+ )
+ meson.override_dependency('gdk-pixbuf-2.0', gdkpixbuf_dep)
