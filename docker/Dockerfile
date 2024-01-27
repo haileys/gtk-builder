@@ -5,6 +5,7 @@ RUN apk add \
     bash \
     cmake \
     gettext \
+    gperf \
     libxml2-utils \
     linux-headers \
     meson \
