@@ -17,6 +17,7 @@ configure() {
         -Ddefault_library=static \
         -Dman=false \
         -Dbuiltin_loaders=all \
+        -Dtests=false \
         "$project_dir/build"
 }
 
