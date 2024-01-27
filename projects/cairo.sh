@@ -14,6 +14,7 @@ configure() {
         --prefix="$PREFIX" \
         -Ddefault_library=static \
         -Dfreetype=enabled \
+        -Dtests=disabled \
         ../build
 }
 
