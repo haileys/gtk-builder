@@ -2,3 +2,7 @@
 	path = submodules/fontconfig
 	url = https://gitlab.freedesktop.org/hailey/fontconfig.git
 	branch = static
+[submodule "submodules/gtk"]
+	path = submodules/gtk
+	url = https://gitlab.gnome.org/hailey/gtk
+	branch = static
