@@ -54,12 +54,12 @@ if [[ "$1" == "all" ]]; then
     build-project zlib
     build-project pcre2
     build-project libffi
-    build-project libxml2
-    build-project shared-mime-info
     build-project glib
     build-project libpng
     build-project libjpeg-turbo
     build-project libtiff
+    build-project libxml2
+    build-project shared-mime-info
     build-project gdk-pixbuf
     build-project freetype
     build-project fontconfig
