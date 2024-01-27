@@ -10,3 +10,7 @@
 	path = submodules/glib
 	url = https://gitlab.gnome.org/hailey/glib.git
 	branch = static
+[submodule "submodules/gdk-pixbuf"]
+	path = submodules/gdk-pixbuf
+	url = https://gitlab.gnome.org/hailey/gdk-pixbuf.git
+	branch = static
