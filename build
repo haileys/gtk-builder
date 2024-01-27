@@ -65,6 +65,8 @@ if [[ "$1" == "all" ]]; then
     build-project fribidi
     build-project pango
     build-project graphene
+    build-project libepoxy
+    build-project gtk
 else
     build-project "$1"
 fi
