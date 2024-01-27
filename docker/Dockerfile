@@ -8,6 +8,8 @@ RUN apk add \
     gperf \
     libxml2-utils \
     linux-headers \
+    mesa-dev \
+    mesa-egl \
     meson \
     musl-libintl \
     ncurses \

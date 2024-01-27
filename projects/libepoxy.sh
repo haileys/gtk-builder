@@ -13,6 +13,10 @@ configure() {
         --prefix="$PREFIX" \
         -Ddefault_library=static \
         -Dx11=false \
+        -Dglx=no \
+        -Degl=yes \
+        -Dtests=false \
+        -Ddocs=false \
         ../build
 }
 
