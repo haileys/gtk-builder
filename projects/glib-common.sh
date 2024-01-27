@@ -13,7 +13,7 @@ prepare() {
 configure() {
     cd "$BUILDER_ROOT/submodules/glib"
 
-    meson subprojects update --reset
+    # meson subprojects update --reset
     meson setup \
         --reconfigure \
         --prefix="$PREFIX" \
