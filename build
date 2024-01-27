@@ -62,6 +62,7 @@ if [[ "$1" == "all" ]]; then
     build-project pixman
     build-project cairo
     build-project harfbuzz
+    build-project fribidi
 else
     build-project "$1"
 fi
