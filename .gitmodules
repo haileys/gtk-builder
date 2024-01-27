@@ -4,5 +4,9 @@
 	branch = static
 [submodule "submodules/gtk"]
 	path = submodules/gtk
-	url = https://gitlab.gnome.org/hailey/gtk
+	url = https://gitlab.gnome.org/hailey/gtk.git
+	branch = static
+[submodule "submodules/glib"]
+	path = submodules/glib
+	url = https://gitlab.gnome.org/hailey/glib.git
 	branch = static
