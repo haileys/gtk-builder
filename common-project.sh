@@ -54,5 +54,23 @@ target-arch() {
     uname -m
 }
 
+version-component() {
+    local version="$1"
+    local component="$2"
+    echo "$version" | cut -d. -f"$component"
+}
+
+major() {
+    version-component "$version" 1
+}
+
+minor() {
+    version-component "$version" 2
+}
+
+major-minor() {
+    version-component "$version" 1-2
+}
+
 export PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
 export PREFIX="$TARGET_DIR"
