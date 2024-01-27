@@ -51,6 +51,7 @@ fi
 
 if [[ "$1" == "all" ]]; then
     # build projects in dependency order
+    build-project gettext
     build-project zlib
     build-project pcre2
     build-project libffi
