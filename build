@@ -60,6 +60,7 @@ if [[ "$1" == "all" ]]; then
     build-project freetype
     build-project fontconfig
     build-project pixman
+    build-project cairo
 else
     build-project "$1"
 fi
