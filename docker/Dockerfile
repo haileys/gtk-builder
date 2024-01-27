@@ -14,6 +14,7 @@ RUN apk add \
     musl-libintl \
     ncurses \
     poetry \
+    py3-packaging \
     python3 \
     vim \
     xz
