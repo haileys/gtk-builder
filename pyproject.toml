@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "gtk-static"
+version = "0.0.0"
+description = ""
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+packaging = "^23.2"
+python = "^3.10"
+
+# [build-system]
+# requires = ["poetry-core"]
+# build-backend = "poetry.core.masonry.api"
