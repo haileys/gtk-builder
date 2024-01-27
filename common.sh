@@ -6,9 +6,9 @@ tput() {
 }
 
 # setup dirs
-CACHE_DIR="$(pwd)/.cache"
-BUILD_DIR="$(pwd)/.build"
-TARGET_DIR="$(pwd)/.target"
+: "${CACHE_DIR="$(pwd)/.cache"}"
+: "${BUILD_DIR:="$(pwd)/.build"}"
+: "${TARGET_DIR:="$(pwd)/.target"}"
 
 mkdir -p "$CACHE_DIR"
 

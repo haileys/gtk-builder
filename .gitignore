@@ -1,4 +1,7 @@
 /.build
 /.cache
+/docker/.build
+/docker/.cache
+/docker/.target
 /.target
 *.log

@@ -46,7 +46,7 @@ check-sha256() {
     local filename="$1"
     local sha256="$2"
 
-    echo "$sha256 $filename" | sha256sum --check --quiet
+    echo "$sha256  $filename" | sha256sum -c
 }
 
 target-arch() {
