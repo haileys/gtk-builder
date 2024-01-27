@@ -72,5 +72,6 @@ major-minor() {
     version-component "$version" 1-2
 }
 
-export PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
+export PATH="$TARGET_DIR/bin:$PATH"
+export PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig:$TARGET_DIR/lib64/pkgconfig:$TARGET_DIR/share/pkgconfig"
 export PREFIX="$TARGET_DIR"
