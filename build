@@ -71,6 +71,9 @@ if [[ "$1" == "all" ]]; then
     build-project pango
     build-project graphene
     build-project libepoxy
+    build-project wayland
+    build-project wayland-protocols
+    build-project xkbcommon
     build-project gtk
 else
     build-project "$1"
