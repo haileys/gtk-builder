@@ -52,6 +52,7 @@ fi
 if [[ "$1" == "all" ]]; then
     # build projects in dependency order
     build-project zlib
+    build-project pcre2
     build-project glib
     build-project libpng
     build-project libjpeg-turbo
