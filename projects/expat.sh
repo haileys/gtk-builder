@@ -6,9 +6,6 @@ prepare() {
         "ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
 
     tar xf "expat-${version}.tar.xz"
-
-    cd "expat-${version}"
-    patch -p1 < "$BUILDER_ROOT/patches/expat/0001-xml-static-in-pkgconfig.patch"
 }
 
 configure() {
