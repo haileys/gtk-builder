@@ -1,11 +1,9 @@
 version=0.42.2
 
 prepare() {
-    fetch-http \
+    fetch-archive \
         "http://cairographics.org/releases/pixman-${version}.tar.gz" \
         "ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e"
-
-    tar xf "pixman-${version}.tar.gz"
 }
 
 configure() {

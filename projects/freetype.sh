@@ -1,11 +1,9 @@
 version=2.13.2
 
 prepare() {
-    fetch-http \
+    fetch-archive \
         "https://gitlab.freedesktop.org/freetype/freetype/-/archive/VER-2-13-2/freetype-VER-2-13-2.tar.gz" \
         "427201f5d5151670d05c1f5b45bef5dda1f2e7dd971ef54f0feaaa7ffd2ab90c"
-
-    tar xf "freetype-VER-2-13-2.tar.gz"
 }
 
 configure() {

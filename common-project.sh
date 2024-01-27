@@ -23,6 +23,15 @@ fetch-http() {
     cp "$cache_path" "$filename"
 }
 
+fetch-archive() {
+    local url="$1"
+    local sha256="$2"
+    local filename="${url##*/}"
+
+    fetch-http "$url" "$sha256"
+    tar -xf "$filename"
+}
+
 extract-tar() {
     local dir="$1"
     local filename="$2"
