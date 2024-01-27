@@ -57,6 +57,9 @@ if [[ "$1" == "all" ]]; then
     build-project libjpeg-turbo
     build-project libtiff
     build-project gdk-pixbuf
+    build-project freetype
+    build-project fontconfig
+    build-project pixman
 else
     build-project "$1"
 fi

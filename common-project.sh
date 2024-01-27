@@ -40,5 +40,10 @@ check-sha256() {
     echo "$sha256 $filename" | sha256sum --check --quiet
 }
 
+target-arch() {
+    # we don't support cross compiling for the moment, so target arch is host arch
+    uname -m
+}
+
 export PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
 export PREFIX="$TARGET_DIR"
