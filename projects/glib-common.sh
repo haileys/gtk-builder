@@ -19,6 +19,7 @@ configure() {
         --prefix="$PREFIX" \
         -Dintrospection="$GLIB_INTROSPECTION" \
         -Ddefault_library=static \
+        -Dtests=false \
         "$project_dir/build"
 }
 
