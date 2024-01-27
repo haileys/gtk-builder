@@ -62,6 +62,7 @@ if [[ "$1" == "all" ]]; then
     build-project shared-mime-info
     build-project gdk-pixbuf
     build-project freetype
+    build-project expat
     build-project fontconfig
     build-project pixman
     build-project cairo
