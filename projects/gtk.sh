@@ -18,8 +18,8 @@ configure() {
         -Dintrospection=disabled \
         -Dbuild-tests=false \
         -Dbuild-testsuite=false \
-        -Dbuild-demos=false \
-        -Dbuild-examples=false \
+        -Dbuild-demos=true \
+        -Dbuild-examples=true \
         -Dmedia-gstreamer=disabled \
         -Dx11-backend=false \
         "$project_dir/build"
