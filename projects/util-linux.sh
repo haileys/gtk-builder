@@ -10,6 +10,7 @@ prepare() {
 meson-project "util-linux-${version}"
 
 meson_args+=(
+    -Dbuild-chfn-chsh=disabled
     -Dbuild-cramfs=disabled
     -Dbuild-fsck=disabled
     -Dbuild-libblkid=enabled
@@ -17,10 +18,14 @@ meson_args+=(
     -Dbuild-libmount=enabled
     -Dbuild-libsmartcols=disabled
     -Dbuild-libuuid=disabled
+    -Dbuild-login=disabled
     -Dbuild-more=disabled
     -Dbuild-pg=disabled
     -Dbuild-python=disabled
+    -Dbuild-runuser=disabled
     -Dbuild-setterm=disabled
+    -Dbuild-su=disabled
+    -Dbuild-sulogin=disabled
     -Dbuild-ul=disabled
     -Dbuild-uuidd=disabled
     -Dncurses=disabled
