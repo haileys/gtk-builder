@@ -11,6 +11,7 @@ build-project() {
     local project_dir="$BUILD_DIR/$project"
     local build_script="$(pwd)/projects/${project}.sh"
     local common_lib="$(pwd)/common-project.sh"
+    local submodules="$(pwd)/submodules"
 
     mkdir -p "$project_dir"
 
@@ -55,6 +56,7 @@ if [[ "$1" == "all" ]]; then
     build-project zlib
     build-project pcre2
     build-project libffi
+    build-project util-linux
     build-project glib
     build-project libpng
     build-project libjpeg-turbo
