@@ -7,11 +7,19 @@ prepare() {
 }
 
 configure() {
+    declare -a configure_args
+
+    if [ -n "$TARGET" ]; then
+        configure_args+=("--host=$TARGET")
+    fi
+
     cd build
+
     "../libffi-${version}/configure" \
         --prefix="$PREFIX" \
         --enable-static \
-        --disable-shared
+        --disable-shared \
+        "${configure_args[@]}"
 }
 
 build() {
