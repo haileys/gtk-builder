@@ -1,7 +1,10 @@
+/.envrc
+
 /.build
 /.cache
+/.target
 /docker/.build
 /docker/.cache
 /docker/.target
-/.target
+
 *.log
