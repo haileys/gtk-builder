@@ -33,10 +33,11 @@ meson-cross-definition-setup() {
     "")
         ;;
     x86_64-linux-musl)
-        cat > x86_64-linux-musl.txt <<END
+        local def_path="$project_dir/build/$TARGET.txt"
+        cat > "$def_path" <<END
 [binaries]
-c = '${TARGET}-gcc'
-cpp = '${TARGET}-g++'
+c = ['${TARGET}-gcc', '-static']
+cpp = ['${TARGET}-g++', '-static']
 ar = '${TARGET}-ar'
 strip = '${TARGET}-strip'
 
@@ -47,7 +48,7 @@ cpu = 'x86_64'
 endian = 'little'
 END
 
-        meson_args+=(--cross-file x86_64-linux-musl.txt)
+        meson_args+=(--cross-file "$def_path")
         ;;
     *)
         die "unknown target in meson-cross-definition: $TARGET"
