@@ -10,12 +10,30 @@ configure() {
     # we can't build out of source tree, so copy source into build dir to
     # build there:
     cp -r gettext-tiny-0.3.2/* build/
+
+    # we need to set our own CFLAGS, but the stock Makefile always overrides
+    # CFLAGS with = assignment. change it to +=
+    sed -ie 's/CFLAGS=/CFLAGS+=/' build/Makefile
 }
 
 build() {
-    make -C build LIBINTL=NONE -j "$(nproc)"
+    build-env-exec make -C build LIBINTL=MUSL -j "$(nproc)"
 }
 
 install() {
-    make -C build LIBINTL=NONE "DESTDIR=$PREFIX" prefix= install
+    build-env-exec make -C build LIBINTL=MUSL "DESTDIR=$PREFIX" prefix= install
+}
+
+build-env-exec() {
+    if [ -n "$TARGET" ]; then
+        export CROSS_COMPILE="${TARGET}-"
+        export CC="${TARGET}-cc"
+        export AR="${TARGET}-ar"
+        export RANLIB="${TARGET}-ranlib"
+    fi
+
+    export CFLAGS="-static"
+    export LDFLAGS="-static"
+
+    "$@"
 }
