@@ -3,7 +3,7 @@ PROJECT_DIR="$(pwd)"
 fetch-http() {
     local url="$1"
     local sha256="$2"
-    local filename="${url##*/}"
+    local filename="$3"
     local cache_path="$CACHE_DIR/$filename"
 
     if [ -e "$cache_path" ]; then
@@ -28,7 +28,23 @@ fetch-archive() {
     local sha256="$2"
     local filename="${url##*/}"
 
-    fetch-http "$url" "$sha256"
+    shift
+    shift
+
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+        --filename)
+            filename="$2"
+            shift
+            shift
+            ;;
+        *)
+            die "unknown flag to fetch-archive: $1"
+            ;;
+        esac
+    done
+
+    fetch-http "$url" "$sha256" "$filename"
     tar -xf "$filename"
 }
 
