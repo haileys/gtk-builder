@@ -17,3 +17,4 @@
 [submodule "submodules/cairo"]
 	path = submodules/cairo
 	url = https://gitlab.freedesktop.org/hailey/cairo.git
+	branch = static
