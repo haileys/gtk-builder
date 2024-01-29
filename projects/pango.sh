@@ -13,6 +13,7 @@ configure() {
         --prefix="$PREFIX" \
         -Ddefault_library=static \
         -Dintrospection=disabled \
+        -Dlibthai=disabled \
         ../build
 }
 
