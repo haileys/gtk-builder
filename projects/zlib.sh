@@ -7,8 +7,17 @@ prepare() {
 }
 
 configure() {
+    if [ -n "$TARGET" ]; then
+        export CHOST="$TARGET"
+    fi
+
+    export CFLAGS+="-static"
+
     cd build
-    "../zlib-${version}/configure" --static --prefix="$PREFIX"
+
+    "../zlib-${version}/configure" \
+        --static \
+        --prefix="$PREFIX"
 }
 
 build() {
