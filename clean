@@ -2,7 +2,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")"
-source common.sh
+source lib/init.sh
 
 rm -rf "$BUILD_DIR"
 rm -rf "$TARGET_DIR"

@@ -1,5 +1,3 @@
-PROJECT_DIR="$(pwd)"
-
 fetch-http() {
     local url="$1"
     local sha256="$2"
@@ -17,6 +15,9 @@ fetch-http() {
     else
         log "downloading $url"
     fi
+
+    # ensure cache dir exists
+    mkdir -p "$CACHE_DIR"
 
     curl -Lo "$cache_path+" "$url"
     mv "$cache_path+" "$cache_path"
@@ -87,8 +88,3 @@ minor() {
 major-minor() {
     version-component "$version" 1-2
 }
-
-export PATH="$TARGET_DIR/bin:$PATH"
-export LIBRARY_PATH="$TARGET_DIR/lib"
-export PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig:$TARGET_DIR/lib64/pkgconfig:$TARGET_DIR/share/pkgconfig"
-export PREFIX="$TARGET_DIR"

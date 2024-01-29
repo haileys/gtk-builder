@@ -1,17 +1,15 @@
+# define appropriate tput wrapper for colours or not
+if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+    tput() {
+        command tput "$@"
+    }
+else
+    tput() {
+        true
+    }
+fi
+
 # logging functions
-USE_COLOR=
-[ -t 1 ] && USE_COLOR=1
-tput() {
-    [ -n "$USE_COLOR" ] && command tput "$@"
-}
-
-# setup dirs
-: "${CACHE_DIR="$(pwd)/.cache"}"
-: "${BUILD_DIR:="$(pwd)/.build"}"
-: "${TARGET_DIR:="$(pwd)/.target"}"
-
-mkdir -p "$CACHE_DIR"
-
 log() {
     local msg="$1"
 

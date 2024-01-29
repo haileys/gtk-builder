@@ -2,26 +2,23 @@
 set -euo pipefail
 
 cd "$(dirname "$0")"
-source common.sh
-
-BUILDER_ROOT="$(pwd)"
+source lib/init.sh
 
 build-project() {
     local project="$1"
     local project_dir="$BUILD_DIR/$project"
-    local build_script="$(pwd)/projects/${project}.sh"
-    local common_lib="$(pwd)/common-project.sh"
-    local submodules="$(pwd)/submodules"
 
     mkdir -p "$project_dir"
 
     log "Building $project"
     (
+        local submodules="$(pwd)/submodules"
+
+        source lib/project/init.sh
+        source "projects/${project}.sh"
+
         cd "$project_dir"
         mkdir -p build
-
-        source "$common_lib"
-        source "$build_script"
 
         log "Preparing $project $version"
         invoke-project-function prepare
