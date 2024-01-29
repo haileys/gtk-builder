@@ -12,6 +12,8 @@ configure() {
         --reconfigure \
         --prefix="$PREFIX" \
         -Ddefault_library=static \
+        -Dbzip2=disabled \
+        -Dbrotli=disabled \
         ../build
 }
 
