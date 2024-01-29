@@ -14,7 +14,7 @@ build-project() {
     (
         local submodules="$(pwd)/submodules"
 
-        source lib/project/init.sh
+        source lib/build/init.sh
         source "projects/${project}.sh"
 
         cd "$project_dir"
