@@ -7,37 +7,25 @@ prepare() {
         --filename "util-linux-${version}.tar.gz"
 }
 
-configure() {
-    cd "util-linux-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Dbuild-cramfs=disabled \
-        -Dbuild-fsck=disabled \
-        -Dbuild-libblkid=enabled \
-        -Dbuild-libfdisk=disabled \
-        -Dbuild-libmount=enabled \
-        -Dbuild-libsmartcols=disabled \
-        -Dbuild-libuuid=disabled \
-        -Dbuild-more=disabled \
-        -Dbuild-pg=disabled \
-        -Dbuild-python=disabled \
-        -Dbuild-setterm=disabled \
-        -Dbuild-ul=disabled \
-        -Dbuild-uuidd=disabled \
-        -Dncurses=disabled \
-        -Dncursesw=disabled \
-        -Dreadline=disabled \
-        -Dsystemd=disabled \
-        -Dtinfo=disabled \
-        ../build
-}
+meson-project "util-linux-${version}"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dbuild-cramfs=disabled
+    -Dbuild-fsck=disabled
+    -Dbuild-libblkid=enabled
+    -Dbuild-libfdisk=disabled
+    -Dbuild-libmount=enabled
+    -Dbuild-libsmartcols=disabled
+    -Dbuild-libuuid=disabled
+    -Dbuild-more=disabled
+    -Dbuild-pg=disabled
+    -Dbuild-python=disabled
+    -Dbuild-setterm=disabled
+    -Dbuild-ul=disabled
+    -Dbuild-uuidd=disabled
+    -Dncurses=disabled
+    -Dncursesw=disabled
+    -Dreadline=disabled
+    -Dsystemd=disabled
+    -Dtinfo=disabled
+)

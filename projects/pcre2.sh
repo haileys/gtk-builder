@@ -6,19 +6,9 @@ prepare() {
         "c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f"
 }
 
-configure() {
-    cd build
-    cmake \
-        -DCMAKE_INSTALL_PREFIX="$PREFIX" \
-        -DBUILD_STATIC_LIBS=ON \
-        -DBUILD_SHARED_LIBS=OFF \
-        "../pcre2-${version}"
-}
+cmake-project "pcre2-${version}"
 
-build() {
-    make -C build -j "$(nproc)"
-}
-
-install() {
-    make -C build install
-}
+cmake_args+=(
+    -DBUILD_STATIC_LIBS=ON
+    -DBUILD_SHARED_LIBS=OFF
+)
