@@ -9,7 +9,7 @@ prepare() {
 }
 
 configure() {
-    cd "$BUILDER_ROOT/submodules/gdk-pixbuf"
+    cd "$submodules/gdk-pixbuf"
     meson setup \
         --reconfigure \
         --prefix="$PREFIX" \

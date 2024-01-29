@@ -12,7 +12,7 @@ prepare() {
 }
 
 configure() {
-    cd "$BUILDER_ROOT/submodules/fontconfig"
+    cd "$submodules/fontconfig"
 
     meson setup \
         --reconfigure \

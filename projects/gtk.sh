@@ -6,7 +6,7 @@ prepare() {
 }
 
 configure() {
-    cd "$BUILDER_ROOT/submodules/gtk"
+    cd "$submodules/gtk"
 
     meson setup \
         --reconfigure \

@@ -11,7 +11,7 @@ prepare() {
 }
 
 configure() {
-    cd "$BUILDER_ROOT/submodules/glib"
+    cd "$submodules/glib"
 
     # meson subprojects update --reset
     meson setup \
