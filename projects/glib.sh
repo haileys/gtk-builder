@@ -11,6 +11,6 @@ prepare() {
 meson-project "$submodules/glib"
 
 meson_args+=(
-    -Dintrospection="$GLIB_INTROSPECTION"
+    -Dintrospection=disabled
     -Dtests=false
 )
