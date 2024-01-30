@@ -6,24 +6,12 @@ prepare() {
         "a7ced37f4102b745ac86d6a70a9da399cc139ff168ba6b8002b4d8d43c900c15"
 }
 
-configure() {
-    cd "libepoxy-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Dx11=false \
-        -Dglx=no \
-        -Degl=yes \
-        -Dtests=false \
-        -Ddocs=false \
-        ../build
-}
+meson-project "libepoxy-${version}"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dx11=false
+    -Dglx=no
+    -Degl=no
+    -Dtests=false
+    -Ddocs=false
+)
