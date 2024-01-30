@@ -40,6 +40,8 @@ invoke-project-function() {
     ( "$func" )
 }
 
+load-recipe
+
 mkdir -p "$TARGET_DIR"
 
 if [ "$#" == 0 ]; then
@@ -50,11 +52,11 @@ fi
 if [[ "$1" == "all" ]]; then
     # build projects in dependency order
 
-    if [[ "$CC" == *musl* ]]; then
-        build-project gettext-tiny
-    else
-        build-project gettext
-    fi
+    # if [[ "$CC" == *musl* ]]; then
+    #     build-project gettext-tiny
+    # else
+    #     build-project gettext
+    # fi
 
     build-project zlib
     build-project pcre2
