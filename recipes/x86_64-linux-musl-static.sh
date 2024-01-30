@@ -13,6 +13,8 @@ recipe-init() {
     local cmake_toolchain_cfg="$BUILD_DIR/cmake-toolchain.txt"
     cmake_args+=("-DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_cfg")
 
+    autotools_args+=("--host=x86_64-linux-musl")
+
     cat > "$meson_cross_cfg" <<END
     [binaries]
     c = ['${target}-gcc', '-static']

@@ -1,5 +1,6 @@
 declare -g -a meson_args
 declare -g -a cmake_args
+declare -g -a autotools_args
 
 load-recipe() {
     if [ -n "${RECIPE:-}" ]; then
