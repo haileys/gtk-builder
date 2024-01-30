@@ -12,5 +12,6 @@ meson-project "$submodules/glib"
 
 meson_args+=(
     -Dintrospection=disabled
+    -Dlibelf=disabled
     -Dtests=false
 )
