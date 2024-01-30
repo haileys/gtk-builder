@@ -49,3 +49,8 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 END
 }
+
+# override target-arch
+target-arch() {
+    echo x86_64
+}
