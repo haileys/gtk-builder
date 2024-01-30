@@ -10,23 +10,9 @@ prepare() {
     true
 }
 
-configure() {
-    cd "$submodules/glib"
+meson-project "$submodules/glib"
 
-    # meson subprojects update --reset
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Dintrospection="$GLIB_INTROSPECTION" \
-        -Ddefault_library=static \
-        -Dtests=false \
-        "$project_dir/build"
-}
-
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dintrospection="$GLIB_INTROSPECTION"
+    -Dtests=false
+)
