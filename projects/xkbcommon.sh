@@ -6,22 +6,10 @@ prepare() {
         "0edc14eccdd391514458bc5f5a4b99863ed2d651e4dd761a90abf4f46ef99c2b"
 }
 
-configure() {
-    cd "libxkbcommon-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Denable-wayland=false \
-        -Denable-x11=false \
-        -Denable-docs=false \
-        ../build
-}
+meson-project "libxkbcommon-${version}"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Denable-wayland=true
+    -Denable-x11=false
+    -Denable-docs=false
+)
