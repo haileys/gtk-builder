@@ -71,10 +71,10 @@ if [[ "$1" == "all" ]]; then
     build-project gdk-pixbuf
     build-project freetype
     build-project expat
+    build-project harfbuzz
     build-project fontconfig
     build-project pixman
     build-project cairo
-    build-project harfbuzz
     build-project fribidi
     build-project pango
     build-project graphene
