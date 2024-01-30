@@ -11,21 +11,8 @@ prepare() {
     true
 }
 
-configure() {
-    cd "$submodules/fontconfig"
+meson-project "$submodules/fontconfig"
 
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Dtests=disabled \
-        "$project_dir/build"
-}
-
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dtests=disabled
+)
