@@ -8,23 +8,13 @@ prepare() {
     true
 }
 
-configure() {
-    cd "$submodules/gdk-pixbuf"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Dintrospection=disabled \
-        -Ddefault_library=static \
-        -Dman=false \
-        -Dbuiltin_loaders=all \
-        -Dtests=false \
-        "$project_dir/build"
-}
+meson-project "$submodules/gdk-pixbuf"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dbuiltin_loaders=all
+    -Ddocs=false
+    -Dgtk_doc=false
+    -Dintrospection=disabled
+    -Dman=false
+    -Dtests=false
+)
