@@ -6,20 +6,8 @@ prepare() {
         "94f0c50b090d6e61a03f62048467b19abbe851be4e11ae7b36f65f8b98c3963a"
 }
 
-configure() {
-    cd "wayland-protocols-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Dtests=false \
-        ../build
-}
+meson-project "wayland-protocols-${version}"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dtests=false
+)
