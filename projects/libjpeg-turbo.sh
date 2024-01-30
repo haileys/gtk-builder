@@ -6,20 +6,9 @@ prepare() {
         "22429507714ae147b3acacd299e82099fce5d9f456882fc28e252e4579ba2a75"
 }
 
-configure() {
-    cd build
+cmake-project "libjpeg-turbo-${version}"
 
-    cmake \
-        -DCMAKE_INSTALL_PREFIX="$PREFIX" \
-        -DENABLE_STATIC=TRUE \
-        -DENABLE_SHARED=FALSE \
-        "../libjpeg-turbo-${version}"
-}
-
-build() {
-    make -C build -j "$(nproc)"
-}
-
-install() {
-    make -C build install
-}
+cmake_args+=(
+    -DENABLE_STATIC=TRUE
+    -DENABLE_SHARED=FALSE
+)
