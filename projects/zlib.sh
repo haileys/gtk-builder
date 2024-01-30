@@ -7,7 +7,7 @@ prepare() {
 }
 
 configure() {
-    if [ -n "$TARGET" ]; then
+    if [ -n "${TARGET:-}" ]; then
         export CHOST="$TARGET"
     fi
 
