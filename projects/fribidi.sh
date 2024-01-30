@@ -6,20 +6,8 @@ prepare() {
         "7fa16c80c81bd622f7b198d31356da139cc318a63fc7761217af4130903f54a2"
 }
 
-configure() {
-    cd "fribidi-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Ddocs=false \
-        ../build
-}
+meson-project "fribidi-${version}"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Ddocs=false
+)
