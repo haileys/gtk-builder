@@ -6,21 +6,10 @@ prepare() {
         "74efc109ae6f903bbe6af77eaa2ac6094b8ee245a2e23f132a7a8f0862d1a9f5"
 }
 
-configure() {
-    cd "pango-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Dintrospection=disabled \
-        -Dlibthai=disabled \
-        ../build
-}
+meson-project "pango-${version}"
 
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dintrospection=disabled
+    -Dlibthai=disabled
+    -Dxft=disabled
+)
