@@ -7,23 +7,13 @@ prepare() {
     true
 }
 
-configure() {
-    cd "$submodules/cairo"
+meson-project "$submodules/cairo"
 
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        -Dfreetype=enabled \
-        -Dtests=disabled \
-        -Dlzo2=disabled \
-        "$project_dir/build"
-}
-
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson_args+=(
+    -Dfreetype=enabled
+    -Dlzo2=disabled
+    -Dtests=disabled
+    -Dxcb=disabled
+    -Dxlib-xcb=disabled
+    -Dxlib=disabled
+)
