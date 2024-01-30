@@ -6,19 +6,9 @@ prepare() {
         "ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
 }
 
-configure() {
-    cd build
-    cmake \
-        -DCMAKE_INSTALL_PREFIX="$PREFIX" \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DEXPAT_BUILD_PKGCONFIG=ON \
-        "../expat-${version}"
-}
+cmake-project "expat-${version}"
 
-build() {
-    make -C build -j "$(nproc)"
-}
-
-install() {
-    make -C build install
-}
+cmake_args+=(
+    -DBUILD_SHARED_LIBS=OFF
+    -DEXPAT_BUILD_PKGCONFIG=ON
+)
