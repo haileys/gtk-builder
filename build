@@ -72,6 +72,7 @@ if [[ "$1" == "all" ]]; then
     build-project freetype
     build-project expat
     build-project harfbuzz
+    build-project graphite2
     build-project fontconfig
     build-project pixman
     build-project cairo

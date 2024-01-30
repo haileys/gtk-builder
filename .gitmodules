@@ -22,3 +22,7 @@
 	path = submodules/util-linux
 	url = https://github.com/haileys/util-linux
 	branch = static
+[submodule "submodules/graphite2"]
+	path = submodules/graphite2
+	url = https://github.com/haileys/graphite
+	branch = static
