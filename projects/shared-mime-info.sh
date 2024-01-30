@@ -6,19 +6,4 @@ prepare() {
         "531291d0387eb94e16e775d7e73788d06d2b2fdd8cd2ac6b6b15287593b6a2de"
 }
 
-configure() {
-    cd "shared-mime-info-${version}"
-    meson setup \
-        --reconfigure \
-        --prefix="$PREFIX" \
-        -Ddefault_library=static \
-        ../build
-}
-
-build() {
-    meson compile -C build
-}
-
-install() {
-    meson install -C build
-}
+meson-project "shared-mime-info-${version}"
