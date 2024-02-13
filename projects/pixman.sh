@@ -9,7 +9,6 @@ prepare() {
 meson-project "pixman-${version}"
 
 meson_args+=(
-    -Ddefault_library=static
     -Dsse2=enabled
     -Dssse3=enabled
     -Dtests=disabled
