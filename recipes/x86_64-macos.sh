@@ -15,3 +15,10 @@ recipe-init() {
         -DBUILD_STATIC_LIBS=OFF
     )
 }
+
+recipe-default-build() {
+    build-project gettext-tiny
+    build-project pcre2
+    build-project libffi
+    build-project glib
+}
