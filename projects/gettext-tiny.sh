@@ -17,23 +17,9 @@ configure() {
 }
 
 build() {
-    build-env-exec make -C build LIBINTL=MUSL -j "$(nproc)"
+    make -C build LIBINTL=NOOP -j "$(nproc)"
 }
 
 install() {
-    build-env-exec make -C build LIBINTL=MUSL "DESTDIR=$PREFIX" prefix= install
-}
-
-build-env-exec() {
-    if [ -n "$TARGET" ]; then
-        export CROSS_COMPILE="${TARGET}-"
-        export CC="${TARGET}-cc"
-        export AR="${TARGET}-ar"
-        export RANLIB="${TARGET}-ranlib"
-    fi
-
-    export CFLAGS="-static"
-    export LDFLAGS="-static"
-
-    "$@"
+    make -C build LIBINTL=NOOP "DESTDIR=$PREFIX" prefix= install
 }

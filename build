@@ -58,7 +58,7 @@ if [[ "$1" == "all" ]]; then
     #     build-project gettext
     # fi
 
-    build-project gettext
+    build-project gettext-tiny
     build-project zlib
     build-project pcre2
     build-project libffi
