@@ -1,11 +1,12 @@
-version="git submodule"
+version="4.13.7"
 
 prepare() {
-    # uses git submodule
-    true
+    fetch-archive \
+        "https://download.gnome.org/sources/gtk/$(major-minor)/gtk-${version}.tar.xz" \
+        "cbcbdcc71ef25136169f0697e616bc29a9d246541f13cac19f5c9c0df369bf41"
 }
 
-meson-project "$submodules/gtk"
+meson-project "gtk-${version}"
 
 meson_args+=(
     -Dintrospection=disabled
