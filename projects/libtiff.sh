@@ -14,4 +14,5 @@ cmake_args+=(
     -Dwebp=False
     -Djbig=False
     -Dlibdeflate=False
+    -Dcxx=False
 )
