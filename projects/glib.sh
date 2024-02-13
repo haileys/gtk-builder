@@ -12,3 +12,11 @@ meson_args+=(
     -Dintrospection=disabled
     -Dtests=false
 )
+
+install() {
+    meson-install
+
+    for exe in glib-compile-resources glib-compile-schemas; do
+        install_name_tool -add_path @executable_path/../lib "$TARGET_DIR/bin/$exe"
+    done
+}

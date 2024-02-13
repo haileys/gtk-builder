@@ -6,7 +6,7 @@ meson-project() {
 
     meson_source_dir="$source_dir"
 
-    configure() {
+    meson-configure() {
         cd "$meson_source_dir"
 
         meson setup \
@@ -16,11 +16,15 @@ meson-project() {
             "$project_dir/build"
     }
 
-    build() {
+    meson-build() {
         meson compile -C build
     }
 
-    install() {
+    meson-install() {
         meson install -C build
     }
+
+    configure() { meson-configure; }
+    build() { meson-build; }
+    install() { meson-install; }
 }
