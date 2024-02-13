@@ -36,7 +36,7 @@ recipe-init() {
 
     cmake_args+=(
         -DBUILD_SHARED_LIBS=ON
-        -DBUILD_STATIC_LIBS=OFF
+        # -DBUILD_STATIC_LIBS=OFF
 
         "-DCMAKE_INSTALL_RPATH=@executable_path/../lib/"
 
