@@ -6,6 +6,10 @@ recipe-init() {
         --disable-shared
     )
 
+    meson_args+=(
+        -Ddefault_library=static
+    )
+
     cmake_args+=(
         -DBUILD_STATIC_LIBS=ON
         -DBUILD_SHARED_LIBS=OFF

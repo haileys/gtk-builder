@@ -25,6 +25,10 @@ recipe-init() {
         --disable-static
     )
 
+    meson_args+=(
+        -Ddefault_library=shared
+    )
+
     cmake_args+=(
         -DBUILD_SHARED_LIBS=ON
         -DBUILD_STATIC_LIBS=OFF

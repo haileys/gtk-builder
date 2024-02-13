@@ -12,7 +12,6 @@ meson-project() {
         meson setup \
             --reconfigure \
             --prefix="$PREFIX" \
-            -Ddefault_library=static \
             "${meson_args[@]}" \
             "$project_dir/build"
     }
