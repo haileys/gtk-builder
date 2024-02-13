@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gtk-static"
+name = "gtk-builder"
 version = "0.0.0"
 description = ""
 authors = []
