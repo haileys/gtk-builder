@@ -9,8 +9,6 @@ prepare() {
 cmake-project "libxml2-${version}"
 
 cmake_args+=(
-    -DBUILD_STATIC_LIBS=ON
-    -DBUILD_SHARED_LIBS=OFF
     -DLIBXML2_WITH_PYTHON=OFF
     -DLIBXML2_WITH_LZMA=OFF
 )
