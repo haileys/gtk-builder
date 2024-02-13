@@ -7,7 +7,7 @@ activate-brew-pkg() {
 
 recipe-init() {
     export CC=clang
-    export CXX=clang
+    export CXX=clang++
     export LD=clang
 
     # we might be running without much linked by homebrew into /usr/local,
