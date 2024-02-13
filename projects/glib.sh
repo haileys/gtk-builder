@@ -19,8 +19,3 @@ install() {
     fix-rpath glib-compile-resources
     fix-rpath glib-compile-schemas
 }
-
-fix-rpath() {
-    local exe="$1"
-    install_name_tool -add_rpath @executable_path/../lib "$TARGET_DIR/bin/$exe"
-}

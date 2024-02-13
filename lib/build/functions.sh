@@ -88,3 +88,8 @@ minor() {
 major-minor() {
     version-component "$version" 1-2
 }
+
+fix-rpath() {
+    local exe="$1"
+    install_name_tool -add_rpath @executable_path/../lib "$TARGET_DIR/bin/$exe"
+}
