@@ -3,10 +3,15 @@ recipe-init() {
     export CXX=clang
     export LD=clang
 
-    declare -g -a cmake_args
+    declare -g -a autotools_args cmake_args
+
+    autotools_args+=(
+        --enable-shared
+        --disable-static
+    )
 
     cmake_args+=(
-        -DBUILD_STATIC_LIBS=OFF
         -DBUILD_SHARED_LIBS=ON
+        -DBUILD_STATIC_LIBS=OFF
     )
 }

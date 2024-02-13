@@ -7,8 +7,3 @@ prepare() {
 }
 
 autotools-project "libffi-${version}"
-
-autotools_args+=(
-    --enable-static
-    --disable-shared
-)
