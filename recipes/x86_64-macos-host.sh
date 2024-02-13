@@ -10,6 +10,8 @@ recipe-init() {
     export CXX=clang++
     export LD=clang
 
+    export DYLD_LIBRARY_PATH="$TARGET_DIR/lib"
+
     # we might be running without much linked by homebrew into /usr/local,
     # so put things we need in the path directly
     activate-brew-pkg coreutils
@@ -49,4 +51,7 @@ recipe-default-build() {
     build-project glib
     build-project libpng
     build-project libjpeg-turbo
+    build-project libtiff
+    build-project libxml2
+    build-project shared-mime-info
 }
