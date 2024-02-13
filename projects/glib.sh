@@ -16,7 +16,11 @@ meson_args+=(
 install() {
     meson-install
 
-    for exe in glib-compile-resources glib-compile-schemas; do
-        install_name_tool -add_path @executable_path/../lib "$TARGET_DIR/bin/$exe"
-    done
+    fix-rpath glib-compile-resources
+    fix-rpath glib-compile-schemas
+}
+
+fix-rpath() {
+    local exe="$1"
+    install_name_tool -add_rpath @executable_path/../lib "$TARGET_DIR/bin/$exe"
 }
