@@ -7,3 +7,8 @@ prepare() {
 }
 
 autotools-project "librsvg-${version}"
+
+autotools_args+=(
+    --enable-introspection=no
+    --disable-gtk-doc
+)

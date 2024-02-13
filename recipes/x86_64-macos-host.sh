@@ -71,4 +71,6 @@ recipe-default-build() {
     build-project pango
     build-project graphene
     build-project libepoxy
+    build-project gtk
+    build-project librsvg
 }
