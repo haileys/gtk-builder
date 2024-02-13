@@ -58,6 +58,7 @@ if [[ "$1" == "all" ]]; then
     #     build-project gettext
     # fi
 
+    build-project gettext
     build-project zlib
     build-project pcre2
     build-project libffi
@@ -87,8 +88,3 @@ if [[ "$1" == "all" ]]; then
 else
     build-project "$1"
 fi
-
-# build-project glib
-# build-project gobject-introspection
-# build-project libpng
-# build-project glib

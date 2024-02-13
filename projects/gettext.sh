@@ -10,8 +10,6 @@ configure() {
     cd build
     "../gettext-${version}/configure" \
         --prefix="$PREFIX" \
-        --enable-static \
-        --disable-shared \
         --disable-libasprintf \
         --disable-java \
         --disable-csharp
