@@ -9,8 +9,8 @@ prepare() {
 meson-project "cairo-${version}"
 
 meson_args+=(
-    -Dfreetype=enabled
-    -Dlzo2=disabled
+    -Dfreetype=disabled
+    -Dfontconfig=disabled
     -Dtests=disabled
     -Dxcb=disabled
     -Dxlib-xcb=disabled
