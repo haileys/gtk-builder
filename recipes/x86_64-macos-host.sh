@@ -12,6 +12,7 @@ recipe-init() {
 
     # export DYLD_LIBRARY_PATH="$TARGET_DIR/lib"
     # export CFLAGS="-Wl,rpath,$TARGET_DIR/lib/ ${CFLAGS:-}"
+    # export LDFLAGS="-Wl,-rpath=@executable_path/../lib/"
 
     # we might be running without much linked by homebrew into /usr/local,
     # so put things we need in the path directly
@@ -30,6 +31,7 @@ recipe-init() {
 
     meson_args+=(
         -Ddefault_library=shared
+        --libdir="$TARGET_DIR/lib"
     )
 
     cmake_args+=(
