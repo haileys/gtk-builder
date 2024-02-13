@@ -9,6 +9,5 @@ prepare() {
 cmake-project "expat-${version}"
 
 cmake_args+=(
-    -DBUILD_SHARED_LIBS=OFF
     -DEXPAT_BUILD_PKGCONFIG=ON
 )
