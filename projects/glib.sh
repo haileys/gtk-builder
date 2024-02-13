@@ -18,4 +18,5 @@ install() {
 
     fix-rpath glib-compile-resources
     fix-rpath glib-compile-schemas
+    fix-rpath gio-querymodules
 }
