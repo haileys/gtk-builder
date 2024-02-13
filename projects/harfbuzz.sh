@@ -15,4 +15,5 @@ meson_args+=(
     -Dintrospection=disabled
     -Dtests=disabled
     -Dutilities=disabled
+    -Dcoretext=enabled
 )
