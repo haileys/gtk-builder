@@ -11,6 +11,7 @@ recipe-init() {
     export LD=clang
 
     export DYLD_LIBRARY_PATH="$TARGET_DIR/lib"
+    export CFLAGS="-Wl,rpath,$TARGET_DIR/lib/ ${CFLAGS:-}"
 
     # we might be running without much linked by homebrew into /usr/local,
     # so put things we need in the path directly
@@ -54,4 +55,16 @@ recipe-default-build() {
     build-project libtiff
     build-project libxml2
     build-project shared-mime-info
+    build-project gdk-pixbuf
+    build-project freetype
+    build-project expat
+    build-project harfbuzz
+    build-project graphite2
+    # build-project fontconfig
+    build-project pixman
+    build-project cairo
+    build-project fribidi
+    build-project pango
+    build-project graphene
+    build-project libepoxy
 }
