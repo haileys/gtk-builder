@@ -9,6 +9,9 @@ prepare() {
 meson-project "pango-${version}"
 
 meson_args+=(
+    -Dgtk_doc=false
+    -Dfontconfig=disabled
+    -Dfreetype=disabled
     -Dintrospection=disabled
     -Dlibthai=disabled
     -Dxft=disabled
