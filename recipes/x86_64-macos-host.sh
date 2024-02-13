@@ -32,6 +32,10 @@ recipe-init() {
         # wish we could set this on a project-specific basis
         -DPNG_SHARED=ON
         -DPNG_STATIC=OFF
+
+        # for libjpeg-turbo
+        -DENABLE_SHARED=TRUE
+        -DENABLE_STATIC=FALSE
     )
 }
 
@@ -39,4 +43,6 @@ recipe-default-build() {
     build-project pcre2
     build-project libffi
     build-project glib
+    build-project libpng
+    build-project libjpeg-turbo
 }

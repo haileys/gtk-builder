@@ -8,7 +8,3 @@ prepare() {
 
 cmake-project "libjpeg-turbo-${version}"
 
-cmake_args+=(
-    -DENABLE_STATIC=TRUE
-    -DENABLE_SHARED=FALSE
-)

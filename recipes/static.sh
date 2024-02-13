@@ -13,5 +13,9 @@ recipe-init() {
         # wish we could set this on a project-specific basis
         -DPNG_STATIC=ON
         -DPNG_SHARED=OFF
+
+        # for libjpeg-turbo
+        -DENABLE_STATIC=TRUE
+        -DENABLE_SHARED=FALSE
     )
 }
