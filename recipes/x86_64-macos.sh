@@ -5,8 +5,8 @@ recipe-init() {
 
     # remove /usr/local from clang include paths to keep homebrew packages
     # from contaminating the build
-    export CFLAGS="-Xclang -nostdsysteminc"
-    export CXXFLAGS="$CFLAGS"
+    export CFLAGS="-Xclang -nostdsysteminc ${CFLAGS:-}"
+    export CXXFLAGS="-Xclang -nostdsysteminc ${CXXFLAGS:-}"
 
     declare -g -a autotools_args cmake_args
 

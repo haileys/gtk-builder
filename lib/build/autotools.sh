@@ -11,9 +11,6 @@ autotools-project() {
 
         cd build
 
-        export CFLAGS="-I${TARGET_DIR}/include"
-        export LDFLAGS="-L${TARGET_DIR}/lib"
-
         "$source_dir/configure" \
             --prefix="$PREFIX" \
             "${autotools_args[@]}"
