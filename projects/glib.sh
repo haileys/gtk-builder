@@ -11,5 +11,4 @@ meson-project "glib-${version}"
 meson_args+=(
     -Dintrospection=disabled
     -Dtests=false
-    -Dinternal_pcre=true
 )
