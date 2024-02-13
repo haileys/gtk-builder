@@ -9,7 +9,6 @@ prepare() {
 cmake-project "tiff-${version}"
 
 cmake_args+=(
-    -DBUILD_SHARED_LIBS=OFF
     -Dlzma=False
     -Dzstd=False
     -Dwebp=False
