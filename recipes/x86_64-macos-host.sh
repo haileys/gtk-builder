@@ -32,7 +32,6 @@ recipe-init() {
 }
 
 recipe-default-build() {
-    build-project gettext-tiny
     build-project pcre2
     build-project libffi
     build-project glib
