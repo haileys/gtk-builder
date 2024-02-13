@@ -7,8 +7,3 @@ prepare() {
 }
 
 cmake-project "libpng-${version}"
-
-cmake_args+=(
-    -DPNG_STATIC=ON
-    -DPNG_SHARED=OFF
-)

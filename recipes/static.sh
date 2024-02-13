@@ -9,5 +9,9 @@ recipe-init() {
     cmake_args+=(
         -DBUILD_STATIC_LIBS=ON
         -DBUILD_SHARED_LIBS=OFF
+
+        # wish we could set this on a project-specific basis
+        -DPNG_STATIC=ON
+        -DPNG_SHARED=OFF
     )
 }
