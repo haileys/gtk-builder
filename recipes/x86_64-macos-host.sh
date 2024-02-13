@@ -10,8 +10,8 @@ recipe-init() {
     export CXX=clang++
     export LD=clang
 
-    export DYLD_LIBRARY_PATH="$TARGET_DIR/lib"
-    export CFLAGS="-Wl,rpath,$TARGET_DIR/lib/ ${CFLAGS:-}"
+    # export DYLD_LIBRARY_PATH="$TARGET_DIR/lib"
+    # export CFLAGS="-Wl,rpath,$TARGET_DIR/lib/ ${CFLAGS:-}"
 
     # we might be running without much linked by homebrew into /usr/local,
     # so put things we need in the path directly
@@ -35,6 +35,8 @@ recipe-init() {
     cmake_args+=(
         -DBUILD_SHARED_LIBS=ON
         -DBUILD_STATIC_LIBS=OFF
+
+        "-DCMAKE_INSTALL_RPATH=@executable_path/../lib/"
 
         # wish we could set this on a project-specific basis
         -DPNG_SHARED=ON
