@@ -7,6 +7,7 @@ recipe-init() {
 
     # activate the cross toolchain
     export PATH="$MACOS_KITS/osxcross/bin:$PATH"
+    export PKG_CONFIG_SYSROOT_DIR="$MACOS_SDK"
 
     local target=x86_64-apple-darwin23
 
@@ -24,15 +25,16 @@ recipe-init() {
     )
 
     # meson config
+    local meson_cross_file="$BUILD_DIR/meson-cross.txt"
+    generate-meson-cross-file "$target" "$meson_cross_file"
     meson_args+=(
+        --cross-file "$meson_cross_file"
         -Ddefault_library=shared
-        --libdir="$TARGET_DIR/lib"
     )
 
     # cmake config
     local cmake_toolchain_cfg="$BUILD_DIR/cmake-toolchain.txt"
-    generate-cmake-cross-toolchain "$cmake_toolchain_cfg"
-
+    generate-cmake-cross-toolchain "$target" "$cmake_toolchain_cfg"
     cmake_args+=(
         "-DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_cfg"
         -DBUILD_SHARED_LIBS=ON
@@ -74,7 +76,8 @@ recipe-default-build() {
 }
 
 generate-cmake-cross-toolchain() {
-    local file="$1"
+    local target="$1"
+    local file="$2"
     local sysroot="$MACOS_SDK"
 
     cat > "$file" <<END
@@ -82,13 +85,13 @@ set(CMAKE_SYSTEM_NAME Darwin)
 set(CMAKE_SYSTEM_PROCESSOR x86_64)
 
 set(CMAKE_SYSROOT "$sysroot")
-set(CMAKE_C_COMPILER o64-clang)
-set(CMAKE_CXX_COMPILER o64-clang++)
-set(CMAKE_LINKER x86_64-apple-darwin23-ld)
-set(CMAKE_AR x86_64-apple-darwin23-ar)
-set(CMAKE_NM x86_64-apple-darwin23-nm)
-set(CMAKE_RANLIB x86_64-apple-darwin23-ranlib)
-set(CMAKE_STRIP x86_64-apple-darwin23-strip)
+set(CMAKE_C_COMPILER "$target-clang")
+set(CMAKE_CXX_COMPILER "$target-clang++")
+set(CMAKE_LINKER "$target-ld")
+set(CMAKE_AR "$target-ar")
+set(CMAKE_NM "$target-nm")
+set(CMAKE_RANLIB "$target-ranlib")
+set(CMAKE_STRIP "$target-strip")
 
 set(CMAKE_FIND_ROOT_PATH
     "$TARGET_DIR"
@@ -97,5 +100,28 @@ set(CMAKE_FIND_ROOT_PATH
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+END
+}
+
+generate-meson-cross-file() {
+    local target="$1"
+    local file="$2"
+    local sysroot="$MACOS_SDK"
+
+    cat > "$file" <<END
+[binaries]
+c = '$target-clang'
+objc = '$target-clang'
+cpp = '$target-clang++'
+ar = '$target-ar'
+strip = '$target-strip'
+ranlib = '$target-ranlib'
+pkg-config = 'pkg-config'
+
+[host_machine]
+system = 'darwin'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'
 END
 }
