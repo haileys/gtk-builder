@@ -151,9 +151,10 @@ generate-system-pkgconfig() {
     local version="$2"
     local libs="$3"
 
-    local pc=
+    local pkgconfig_dir="$TARGET_DIR/lib/pkgconfig"
+    mkdir -p "$pkgconfig_dir"
 
-    cat > "$TARGET_DIR/lib/pkgconfig/$name.pc" <<END
+    cat > "$pkgconfig_dir/$name.pc" <<END
 prefix=$MACOS_SDK
 exec_prefix=\${prefix}
 libdir=\${exec_prefix}/lib
