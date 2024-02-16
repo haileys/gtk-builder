@@ -78,6 +78,7 @@ recipe-default-build() {
     build-project libepoxy
     build-project gtk
     build-project librsvg
+    build-project yaml
 }
 
 generate-cmake-cross-toolchain() {
