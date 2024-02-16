@@ -8,9 +8,7 @@ recipe-init() {
     # activate the cross toolchain
     export PATH="$MACOS_KITS/osxcross/bin:$PATH"
 
-    export CC=o64-clang
-    export CXX=o64-clang++
-    export LD=o64-clang
+    local target=x86_64-apple-darwin23
 
     declare -g -a autotools_args cmake_args meson_args
 
@@ -18,6 +16,11 @@ recipe-init() {
     autotools_args+=(
         --enable-shared
         --disable-static
+        "--host=$target"
+        "--target=$target"
+        "CC=$target-clang"
+        "CXX=$target-clang++"
+        "LD=$target-ld"
     )
 
     # meson config
