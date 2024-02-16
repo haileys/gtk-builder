@@ -15,4 +15,6 @@ cmake_args+=(
     -Djbig=False
     -Dlibdeflate=False
     -Dcxx=False
+    -Dtiff-docs=OFF
+    -Dtiff-tests=OFF
 )
