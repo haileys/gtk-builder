@@ -7,7 +7,6 @@ recipe-init() {
 
     # activate the cross toolchain
     export PATH="$MACOS_KITS/osxcross/bin:$PATH"
-    export PKG_CONFIG_SYSROOT_DIR="$MACOS_SDK"
 
     local target=x86_64-apple-darwin23
 
