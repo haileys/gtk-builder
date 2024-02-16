@@ -48,6 +48,10 @@ recipe-init() {
         -DENABLE_SHARED=TRUE
         -DENABLE_STATIC=FALSE
     )
+
+    # generate zlib pc file so that downstream packages can find the system
+    # zlib that ships with macOS
+    generate-zlib-pkgconfig
 }
 
 recipe-default-build() {
@@ -122,5 +126,25 @@ system = 'darwin'
 cpu_family = 'x86_64'
 cpu = 'x86_64'
 endian = 'little'
+END
+}
+
+generate-zlib-pkgconfig() {
+    local pc="$TARGET_DIR/lib/pkgconfig/zlib.pc"
+    mkdir -p "$(dirname "$pc")"
+
+    cat > "$pc" <<END
+prefix=$MACOS_SDK
+exec_prefix=\${prefix}
+libdir=\${exec_prefix}/lib
+sharedlibdir=\${libdir}
+includedir=\${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.12
+
+Requires:
+Libs: -lz
 END
 }
