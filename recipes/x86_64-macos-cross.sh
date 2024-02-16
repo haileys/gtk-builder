@@ -79,7 +79,7 @@ recipe-default-build() {
     build-project libepoxy
     build-project gtk
     build-project librsvg
-    build-project yaml
+    build-project libadwaita
 }
 
 generate-cmake-cross-toolchain() {
