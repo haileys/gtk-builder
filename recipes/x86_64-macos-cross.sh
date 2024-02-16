@@ -51,9 +51,10 @@ recipe-init() {
         -DENABLE_STATIC=FALSE
     )
 
-    # generate zlib pc file so that downstream packages can find the system
-    # zlib that ships with macOS
+    # generate pc files for libraries that ship with macos so that downstream
+    # packages can find them
     generate-zlib-pkgconfig
+    generate-curl-pkgconfig
 }
 
 recipe-default-build() {
@@ -145,22 +146,33 @@ find-host-program() {
     command -v "$cmd" || die "command $cmd not found on host"
 }
 
-generate-zlib-pkgconfig() {
-    local pc="$TARGET_DIR/lib/pkgconfig/zlib.pc"
-    mkdir -p "$(dirname "$pc")"
+generate-system-pkgconfig() {
+    local name="$1"
+    local version="$2"
+    local libs="$3"
 
-    cat > "$pc" <<END
+    local pc=
+
+    cat > "$TARGET_DIR/lib/pkgconfig/$name.pc" <<END
 prefix=$MACOS_SDK
 exec_prefix=\${prefix}
 libdir=\${exec_prefix}/lib
 sharedlibdir=\${libdir}
 includedir=\${prefix}/include
 
-Name: zlib
-Description: zlib compression library
-Version: 1.2.12
+Name: $name
+Description: system $name
+Version: $version
 
 Requires:
-Libs: -lz
+Libs: $libs
 END
+}
+
+generate-zlib-pkgconfig() {
+    generate-system-pkgconfig zlib "1.2.12" "-lz"
+}
+
+generate-curl-pkgconfig() {
+    generate-system-pkgconfig libcurl "8.4.0" "-lcurl"
 }
