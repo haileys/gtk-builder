@@ -26,3 +26,7 @@
 	path = submodules/graphite2
 	url = https://github.com/haileys/graphite
 	branch = static
+[submodule "submodules/libadwaita"]
+	path = submodules/libadwaita
+	url = https://gitlab.gnome.org/hailey/libadwaita.git
+	branch = 1.4-without-appstream
