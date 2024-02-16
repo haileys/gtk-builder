@@ -45,45 +45,15 @@ load-recipe
 mkdir -p "$TARGET_DIR"
 
 if [ "$#" == 0 ]; then
-    echo "specify project to build" >&2
+    echo "specify project to build or 'all'" >&2
     exit 1
 fi
 
 if [[ "$1" == "all" ]]; then
-    # build projects in dependency order
+    [[ "$(type -t recipe-default-build)" == "function" ]] ||
+        die "recipe-default-build not defined, cannot build all. Did you load a recipe?"
 
-    # if [[ "$CC" == *musl* ]]; then
-    #     build-project gettext-tiny
-    # else
-    #     build-project gettext
-    # fi
-
-    build-project zlib
-    build-project pcre2
-    build-project libffi
-    build-project util-linux
-    build-project glib
-    build-project libpng
-    build-project libjpeg-turbo
-    build-project libtiff
-    build-project libxml2
-    build-project shared-mime-info
-    build-project gdk-pixbuf
-    build-project freetype
-    build-project expat
-    build-project harfbuzz
-    build-project graphite2
-    build-project fontconfig
-    build-project pixman
-    build-project cairo
-    build-project fribidi
-    build-project pango
-    build-project graphene
-    build-project libepoxy
-    build-project wayland
-    build-project wayland-protocols
-    build-project xkbcommon
-    build-project gtk
+    recipe-default-build
 else
     build-project "$1"
 fi
