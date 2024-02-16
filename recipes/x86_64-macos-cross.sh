@@ -39,22 +39,26 @@ recipe-init() {
     cmake_args+=(
         "-DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_cfg"
         -DBUILD_SHARED_LIBS=ON
-
-        "-DCMAKE_INSTALL_RPATH=@executable_path/../lib/"
-
-        # wish we could set this on a project-specific basis
-        -DPNG_SHARED=ON
-        -DPNG_STATIC=OFF
-
-        # for libjpeg-turbo
-        -DENABLE_SHARED=TRUE
-        -DENABLE_STATIC=FALSE
     )
 
     # generate pc files for libraries that ship with macos so that downstream
     # packages can find them
     generate-zlib-pkgconfig
     generate-curl-pkgconfig
+}
+
+recipe-configure#libpng() {
+    cmake_args+=(
+        -DPNG_SHARED=ON
+        -DPNG_STATIC=OFF
+    )
+}
+
+recipe-configure#libjpeg-turbo() {
+    cmake_args+=(
+        -DENABLE_SHARED=TRUE
+        -DENABLE_STATIC=FALSE
+    )
 }
 
 recipe-default-build() {

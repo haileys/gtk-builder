@@ -21,23 +21,44 @@ build-project() {
         mkdir -p build
 
         log "Preparing $project $version"
-        invoke-project-function prepare
+        project-step prepare "$project"
 
         log "Configuring $project $version"
-        invoke-project-function configure
+        project-step configure "$project"
 
         log "Building $project $version"
-        invoke-project-function build
+        project-step build "$project"
 
         log "Installing $project $version"
-        invoke-project-function install
+        project-step install "$project"
     )
 }
 
-invoke-project-function() {
-    local func="$1"
-    [[ "$(type -t "$func")" == "function" ]] || die "$func is not a function"
-    ( "$func" )
+check-function() {
+    [[ "$(type -t "$1")" == "function" ]]
+}
+
+invoke-project-step() {
+    check-function "$1" || die "$1 is not a function"
+    # steps run in subshells
+    ( "$1" )
+}
+
+invoke-project-hook() {
+    check-function "$1" || return 0
+    # hooks do not run in subshells
+    "$1"
+}
+
+project-step() {
+    local step="$1"
+    local project="$2"
+
+    invoke-project-hook "recipe-${step}#${project}"
+
+    invoke-project-step "$step"
+
+    invoke-project-hook "recipe-post-${step}#${project}"
 }
 
 # ensure dirs exist before loading recipes, which might write to them
