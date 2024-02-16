@@ -7,8 +7,10 @@ recipe-init() {
 
     # activate the cross toolchain
     export PATH="$MACOS_KITS/osxcross/bin:$PATH"
-
+    export OSXCROSS_PKG_CONFIG_USE_NATIVE_VARIABLES=1
     local target=x86_64-apple-darwin23
+    export RUST_TARGET=x86_64-apple-darwin
+    export CARGO_TARGET_X86_64_APPLE_DARWIN_LINKER="$target-clang"
 
     declare -g -a autotools_args cmake_args meson_args
 
@@ -18,9 +20,9 @@ recipe-init() {
         --disable-static
         "--host=$target"
         "--target=$target"
-        "CC=$target-clang"
-        "CXX=$target-clang++"
-        "LD=$target-ld"
+        CC="$target-clang"
+        CXX="$target-clang++"
+        LD="$target-ld"
     )
 
     # meson config
@@ -121,12 +123,25 @@ strip = '$target-strip'
 ranlib = '$target-ranlib'
 pkg-config = 'pkg-config'
 
+gdbus-codegen = '$(find-host-program gdbus-codegen)'
+glib-compile-resources = '$(find-host-program glib-compile-resources)'
+glib-compile-schemas = '$(find-host-program glib-compile-schemas)'
+glib-genmarshal = '$(find-host-program glib-genmarshal)'
+glib-mkenums = '$(find-host-program glib-mkenums)'
+
 [host_machine]
 system = 'darwin'
 cpu_family = 'x86_64'
 cpu = 'x86_64'
 endian = 'little'
 END
+}
+
+# we need certain programs from the host OS when cross compiling
+find-host-program() {
+    local cmd="$1"
+    local path
+    command -v "$cmd" || die "command $cmd not found on host"
 }
 
 generate-zlib-pkgconfig() {
