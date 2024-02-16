@@ -40,9 +40,13 @@ invoke-project-function() {
     ( "$func" )
 }
 
-load-recipe
-
+# ensure dirs exist before loading recipes, which might write to them
+mkdir -p "$BUILD_DIR"
 mkdir -p "$TARGET_DIR"
+mkdir -p "$TARGET_DIR/lib"
+
+# load the recipe
+load-recipe
 
 if [ "$#" == 0 ]; then
     echo "specify project to build or 'all'" >&2
