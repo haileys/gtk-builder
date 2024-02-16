@@ -61,6 +61,14 @@ recipe-configure#libjpeg-turbo() {
     )
 }
 
+recipe-post-install#librsvg() {
+    # fix import path for librsvg's pixbuf loader
+    x86_64-apple-darwin23-install_name_tool -change \
+        "$PREFIX/lib/librsvg-2.2.dylib" \
+        "@rpath/librsvg-2.2.dylib" \
+        "$PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so"
+}
+
 recipe-default-build() {
     build-project pcre2
     build-project libffi
