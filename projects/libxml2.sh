@@ -16,5 +16,5 @@ cmake_args+=(
 install() {
     cmake-install
 
-    fix-rpath xmllint
+    # fix-rpath xmllint
 }
