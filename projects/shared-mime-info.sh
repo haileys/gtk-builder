@@ -15,7 +15,8 @@ prepare() {
 meson-project "shared-mime-info-${version}"
 
 meson_args+=(
-    -Dbuild-translations=false
     -Dbuild-tests=false
+    -Dbuild-tools=false
+    -Dbuild-translations=false
     -Dupdate-mimedb=false
 )
