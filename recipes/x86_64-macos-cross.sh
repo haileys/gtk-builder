@@ -61,6 +61,14 @@ recipe-configure#libjpeg-turbo() {
     )
 }
 
+recipe-post-install#glib() {
+    # fix absolute import path
+    x86_64-apple-darwin23-install_name_tool -change \
+        "$PREFIX/lib/libffi.8.dylib" \
+        "@rpath/libffi.8.dylib" \
+        "$PREFIX/lib/libgobject-2.0.0.dylib"
+}
+
 recipe-post-install#librsvg() {
     local gdk_pixbuf_lib="lib/gdk-pixbuf-2.0/2.10.0"
     local pixbufloader_svg="$gdk_pixbuf_lib/loaders/libpixbufloader-svg.so"
