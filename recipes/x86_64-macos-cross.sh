@@ -87,6 +87,8 @@ recipe-post-install#librsvg() {
 "svg" "svgz" "svg.gz" ""
 " <svg" "*    " 100
 " <!DOCTYPE svg" "*             " 100
+
+
 END
 }
 
