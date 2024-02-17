@@ -62,11 +62,24 @@ recipe-configure#libjpeg-turbo() {
 }
 
 recipe-post-install#librsvg() {
+    local gdk_pixbuf_lib="lib/gdk-pixbuf-2.0/2.10.0"
+    local pixbufloader_svg="$gdk_pixbuf_lib/loaders/libpixbufloader-svg.so"
+
     # fix import path for librsvg's pixbuf loader
     x86_64-apple-darwin23-install_name_tool -change \
         "$PREFIX/lib/librsvg-2.2.dylib" \
         "@rpath/librsvg-2.2.dylib" \
-        "$PREFIX/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so"
+        "$PREFIX/$pixbufloader_svg"
+
+    # generate loaders.cache entry for rsvg loader
+    cat >> "$PREFIX/$gdk_pixbuf_lib/loaders.cache" <<END
+"$pixbufloader_svg"
+"svg" 6 "gdk-pixbuf" "Scalable Vector Graphics" "LGPL"
+"image/svg+xml" "image/svg" "image/svg-xml" "image/vnd.adobe.svg+xml" "text/xml-svg" "image/svg+xml-compressed" ""
+"svg" "svgz" "svg.gz" ""
+" <svg" "*    " 100
+" <!DOCTYPE svg" "*             " 100
+END
 }
 
 recipe-default-build() {

@@ -15,4 +15,5 @@ meson_args+=(
     -Dintrospection=disabled
     -Dman=false
     -Dtests=false
+    -Drelocatable=true
 )
