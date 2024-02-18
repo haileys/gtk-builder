@@ -1,7 +1,7 @@
 declare -g tool_prefix
 declare -g -a autotools_args cmake_args meson_args
 
-recipe-init() {
+recipe::init() {
     # some basic cross env checks
     [ -n "${MACOS_KITS:-}" ] || die "MACOS_KITS not set, cannot proceed with cross build"
     [ -n "${MACOS_SDK:-}" ] || die "MACOS_SDK not set, cannot proceed with cross build"
@@ -54,21 +54,21 @@ target-arch() {
     echo "$RECIPE_ARCH"
 }
 
-recipe-configure#libpng() {
+recipe::configure#libpng() {
     cmake_args+=(
         -DPNG_SHARED=ON
         -DPNG_STATIC=OFF
     )
 }
 
-recipe-configure#libjpeg-turbo() {
+recipe::configure#libjpeg-turbo() {
     cmake_args+=(
         -DENABLE_SHARED=TRUE
         -DENABLE_STATIC=FALSE
     )
 }
 
-recipe-post-install#glib() {
+recipe::post-install#glib() {
     # fix absolute import path
     "${tool_prefix}install_name_tool" -change \
         "$PREFIX/lib/libffi.8.dylib" \
@@ -76,12 +76,12 @@ recipe-post-install#glib() {
         "$PREFIX/lib/libgobject-2.0.0.dylib"
 }
 
-recipe-configure#pixman() {
+recipe::configure#pixman() {
     # compiling with instrinsics spits out redonkulous errors for some reason
     meson_args+=(-Da64-neon=disabled)
 }
 
-recipe-configure#librsvg() {
+recipe::configure#librsvg() {
     export RUST_TARGET="${RECIPE_ARCH}-apple-darwin"
 
     case "$RECIPE_ARCH" in
@@ -94,7 +94,7 @@ recipe-configure#librsvg() {
     esac
 }
 
-recipe-post-install#librsvg() {
+recipe::post-install#librsvg() {
     local gdk_pixbuf_lib="lib/gdk-pixbuf-2.0/2.10.0"
     local pixbufloader_svg="$gdk_pixbuf_lib/loaders/libpixbufloader-svg.so"
 
@@ -117,7 +117,7 @@ recipe-post-install#librsvg() {
 END
 }
 
-recipe-default-build() {
+recipe::build-default() {
     build-project pcre2
     build-project libffi
     build-project glib

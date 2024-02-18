@@ -54,11 +54,11 @@ project-step() {
     local step="$1"
     local project="$2"
 
-    invoke-project-hook "recipe-${step}#${project}"
+    invoke-project-hook "recipe::${step}#${project}"
 
     invoke-project-step "$step"
 
-    invoke-project-hook "recipe-post-${step}#${project}"
+    invoke-project-hook "recipe::post-${step}#${project}"
 }
 
 # ensure dirs exist before loading recipes, which might write to them
@@ -75,10 +75,10 @@ if [ "$#" == 0 ]; then
 fi
 
 if [[ "$1" == "all" ]]; then
-    [[ "$(type -t recipe-default-build)" == "function" ]] ||
-        die "recipe-default-build not defined, cannot build all. Did you load a recipe?"
+    [[ "$(type -t recipe::build-default)" == "function" ]] ||
+        die "recipe::build-default not defined, cannot build all. Did you load a recipe?"
 
-    recipe-default-build
+    recipe::build-default
 else
     build-project "$1"
 fi

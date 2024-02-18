@@ -5,7 +5,7 @@ activate-brew-pkg() {
     export PATH="$prefix/bin:$PATH"
 }
 
-recipe-init() {
+recipe::init() {
     export CC=clang
     export CXX=clang++
     export LD=clang
@@ -50,7 +50,7 @@ recipe-init() {
     )
 }
 
-recipe-default-build() {
+recipe::build-default() {
     build-project pcre2
     build-project libffi
     build-project glib

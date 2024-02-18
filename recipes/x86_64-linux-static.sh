@@ -1,4 +1,4 @@
-recipe-init() {
+recipe::init() {
     declare -g -a autotools_args cmake_args
 
     autotools_args+=(
@@ -24,7 +24,7 @@ recipe-init() {
     )
 }
 
-recipe-default-build() {
+recipe::build-default() {
     build-project zlib
     build-project pcre2
     build-project libffi
