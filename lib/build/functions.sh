@@ -66,11 +66,6 @@ check-sha256() {
     echo "$sha256  $filename" | sha256sum -c
 }
 
-target-arch() {
-    # we don't support cross compiling for the moment, so target arch is host arch
-    uname -m
-}
-
 version-component() {
     local version="$1"
     local component="$2"

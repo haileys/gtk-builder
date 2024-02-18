@@ -51,3 +51,9 @@ die() {
 
     exit 1
 }
+
+find-host-program() {
+    local cmd="$1"
+    local path
+    command -v "$cmd" || die "command $cmd not found on host"
+}
