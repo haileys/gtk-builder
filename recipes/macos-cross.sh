@@ -197,13 +197,6 @@ endian = 'little'
 END
 }
 
-# we need certain programs from the host OS when cross compiling
-find-host-program() {
-    local cmd="$1"
-    local path
-    command -v "$cmd" || die "command $cmd not found on host"
-}
-
 macos-cross::generate-system-pkgconfig() {
     local name="$1"
     local version="$2"
