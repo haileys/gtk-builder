@@ -1,4 +1,5 @@
 version="2.42.10"
+depends=(glib shared-mime-info libpng libjpeg-turbo libtiff)
 
 prepare() {
     fetch-archive \

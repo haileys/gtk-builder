@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")"
+source lib/init.sh
+
+main() {
+    if [ "$#" == 0 ]; then
+        echo "specify project" >&2
+        exit 1
+    fi
+
+    project::depends "$1"
+}
+
+load-recipe
+main "$@"

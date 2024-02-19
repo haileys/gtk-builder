@@ -1,4 +1,5 @@
 version="8.3.0"
+depends=(freetype glib graphite2)
 
 prepare() {
     fetch-archive \

@@ -1,4 +1,5 @@
 version="2.79.1"
+depends=(pcre2 libffi)
 
 prepare() {
     fetch-archive \

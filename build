@@ -48,24 +48,25 @@ project-step() {
     invoke-project-hook "recipe::post-${step}#${project}"
 }
 
-# ensure dirs exist before loading recipes, which might write to them
-mkdir -p "$BUILD_DIR"
-mkdir -p "$TARGET_DIR"
-mkdir -p "$TARGET_DIR/lib"
+main() {
+    if [ "$#" == 0 ]; then
+        echo "specify project to build or 'all'" >&2
+        exit 1
+    fi
 
-# load the recipe
+    # log "Dependencies for project $1"
+    # project::depends "$1"
+    # exit
+
+    if [[ "$1" == "all" ]]; then
+        [[ "$(type -t recipe::build-default)" == "function" ]] ||
+            die "recipe::build-default not defined, cannot build all. Did you load a recipe?"
+
+        recipe::build-default
+    else
+        build-project "$1"
+    fi
+}
+
 load-recipe
-
-if [ "$#" == 0 ]; then
-    echo "specify project to build or 'all'" >&2
-    exit 1
-fi
-
-if [[ "$1" == "all" ]]; then
-    [[ "$(type -t recipe::build-default)" == "function" ]] ||
-        die "recipe::build-default not defined, cannot build all. Did you load a recipe?"
-
-    recipe::build-default
-else
-    build-project "$1"
-fi
+main "$@"

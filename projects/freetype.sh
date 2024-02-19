@@ -1,4 +1,5 @@
 version=2.13.2
+depends=(zlib libpng)
 
 prepare() {
     fetch-archive \

@@ -1,3 +1,5 @@
+source lib/project/depends.sh
+
 project::with-env() {
     local project="$1"
     [[ "${2:-}" == "--" ]] || die "internal usage error: project::with-env <project name> -- <command...>"
@@ -8,6 +10,8 @@ project::with-env() {
         # set vars
         local project_dir="$BUILD_DIR/$project"
         local submodules="$(pwd)/submodules"
+
+        declare -a depends
 
         # ensure project dir exists
         mkdir -p "$project_dir"
