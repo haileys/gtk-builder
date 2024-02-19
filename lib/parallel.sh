@@ -1,5 +1,6 @@
 declare -g PARALLEL
 declare -g parallel_view_pipe
+declare -g -a task_pids
 
 parallel::init() {
     PARALLEL=1
@@ -16,7 +17,7 @@ task::spawn() {
     # spawn task in subshell and capture pid
     parallel::view::send new "$task_name"
     ( "$@" ) &
-    local pid="$!"
+    task_pids+=("$!")
 }
 
 task::status() {
@@ -45,7 +46,17 @@ task::trap-error() {
 }
 
 parallel::await() {
-    wait
+    while [ "${#task_pids[@]}" -gt 0 ]; do
+        local exited_pid
+        wait -n -p exited_pid "${task_pids[@]}"
+
+        # rebuild task_pids array without the pid that just finished
+        declare -a old_task_pids=("${task_pids[@]}")
+        task_pids=()
+        for pid in "${old_task_pids[@]}"; do
+            [ "$pid" -ne "$exited_pid" ] && task_pids+=("$pid")
+        done
+    done
 }
 
 parallel::view::send() {
