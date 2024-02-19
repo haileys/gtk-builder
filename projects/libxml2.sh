@@ -12,9 +12,3 @@ cmake_args+=(
     -DLIBXML2_WITH_PYTHON=OFF
     -DLIBXML2_WITH_LZMA=OFF
 )
-
-install() {
-    cmake-install
-
-    # fix-rpath xmllint
-}
