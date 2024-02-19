@@ -5,21 +5,30 @@ cd "$(dirname "$0")"
 source lib/init.sh
 
 build-project() {
-    project::with-env "$1" -- project-steps
+    task::spawn "$1" -- \
+        project::with-env "$1" -- \
+        project-steps
 }
 
 project-steps() {
-    log "Preparing $project $version"
-    project-step prepare
+    (
+        # trap task::trap-error ERR
+        task::started
 
-    log "Configuring $project $version"
-    project-step configure
+        log "Preparing $project $version"
+        project-step prepare
 
-    log "Building $project $version"
-    project-step build
+        log "Configuring $project $version"
+        project-step configure
 
-    log "Installing $project $version"
-    project-step install
+        log "Building $project $version"
+        project-step build
+
+        log "Installing $project $version"
+        project-step install
+
+        task::finished "Finished $project $version"
+    ) &> "$project_dir/build.log"
 }
 
 check-function() {
@@ -54,6 +63,8 @@ main() {
         exit 1
     fi
 
+    parallel::init
+
     # log "Dependencies for project $1"
     # project::depends "$1"
     # exit
@@ -64,8 +75,13 @@ main() {
 
         recipe::build-default
     else
-        build-project "$1"
+        while [ "$#" -gt 0 ]; do
+            build-project "$1"
+            shift
+        done
     fi
+
+    parallel::await
 }
 
 load-recipe

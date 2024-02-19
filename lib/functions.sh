@@ -13,6 +13,8 @@ fi
 log() {
     local msg="$1"
 
+    task::status "$msg"
+
     printf "%s+++ %s%s%s\n" \
         "$(tput setaf 4 bold)" \
         "$(tput sgr0)$(tput setaf 15)" \
