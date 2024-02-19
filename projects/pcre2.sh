@@ -9,3 +9,6 @@ prepare() {
 
 cmake-project "pcre2-${version}"
 
+cmake_args+=(
+    -DPCRE2_BUILD_PCRE2GREP=OFF
+)

@@ -7,12 +7,14 @@ source lib/init.sh
 build-project() {
     task::spawn "$1" -- \
         project::with-env "$1" -- \
-        project-steps
+        project::lock-build project-steps
 }
 
 project-steps() {
     (
-        # trap task::trap-error ERR
+        task::status "Waiting"
+        project::wait-depends
+
         task::started
 
         log "Preparing $project $version"
@@ -28,7 +30,13 @@ project-steps() {
         project-step install
 
         task::finished "Finished $project $version"
-    ) &> "$project_dir/build.log"
+    ) > "$project_dir/build.log" &
+
+    # workaround for || affecting the behaviour of set -e inside a subshell
+    wait $! || {
+        task::error "Build failed"
+        false
+    }
 }
 
 check-function() {
@@ -38,7 +46,7 @@ check-function() {
 invoke-project-step() {
     check-function "$1" || die "$1 is not a function"
     # steps run in subshells
-    ( "$1" )
+    ( "$1" ) 2>&1
 }
 
 invoke-project-hook() {
@@ -50,9 +58,13 @@ invoke-project-hook() {
 project-step() {
     local step="$1"
 
-    invoke-project-hook "recipe::${step}#${project}"
+    invoke-project-hook "recipe::pre-${step}#${project}"
 
-    invoke-project-step "$step"
+    if check-function "recipe::${step}#${project}"; then
+        invoke-project-step "recipe::${step}#${project}"
+    else
+        invoke-project-step "$step"
+    fi
 
     invoke-project-hook "recipe::post-${step}#${project}"
 }
@@ -65,19 +77,15 @@ main() {
 
     parallel::init
 
-    # log "Dependencies for project $1"
-    # project::depends "$1"
-    # exit
-
     if [[ "$1" == "all" ]]; then
         [[ "$(type -t recipe::build-default)" == "function" ]] ||
             die "recipe::build-default not defined, cannot build all. Did you load a recipe?"
 
         recipe::build-default
     else
-        while [ "$#" -gt 0 ]; do
-            build-project "$1"
-            shift
+        for project in $(project::depends "$@"); do
+            build-project "$project"
+            sleep 0.1
         done
     fi
 

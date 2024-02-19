@@ -45,6 +45,8 @@ warn() {
 die() {
     local msg="$1"
 
+    task::error "$msg"
+
     printf "%s!!! %s%s%s\n" \
         "$(tput setaf 1 bold)" \
         "$(tput sgr0)$(tput setaf 15)" \

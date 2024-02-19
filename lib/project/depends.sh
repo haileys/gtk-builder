@@ -1,7 +1,7 @@
 declare -gA project_visited
 
 project::direct-depends() {
-    project::with-env "$1" -- project::-write-depends
+    project::with-env "$1" -- project::-write-depends >&2
     cat "$BUILD_DIR/$1/.depends"
 }
 

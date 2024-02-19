@@ -17,11 +17,12 @@ task::spawn() {
     # spawn task in subshell and capture pid
     parallel::view::send new "$task_name"
     ( "$@" ) &
-    task_pids+=("$!")
+    local pid="$!"
+    task_pids+=("$pid")
 }
 
 task::status() {
-    [ -n "${task_name:-}" ] || die "can only call task::status from within parallel task"
+    [ -n "${task_name:-}" ] || return 0
     [ -n "$PARALLEL" ] || return 0
     parallel::view::send status "$task_name" "$1"
 }
@@ -39,16 +40,17 @@ task::finished() {
     parallel::view::send status "$task_name" "$1"
 }
 
-task::trap-error() {
-    [ -n "${task_name:-}" ] || die "task error trap called from outside parallel task"
+task::error() {
+    [ -n "${task_name:-}" ] || return 0
+    [ -n "$PARALLEL" ] || return 0
     parallel::view::send failed "$task_name"
-    parallel::view::send status "$task_name" "$BASH_COMMAND"
+    parallel::view::send status "$task_name" "$1"
 }
 
 parallel::await() {
     while [ "${#task_pids[@]}" -gt 0 ]; do
         local exited_pid
-        wait -n -p exited_pid "${task_pids[@]}"
+        wait -n -p exited_pid "${task_pids[@]}" || true
 
         # rebuild task_pids array without the pid that just finished
         declare -a old_task_pids=("${task_pids[@]}")
@@ -81,6 +83,9 @@ parallel::view::main() {
 
         # message args are already quoted by send-side
         eval "message=($message_raw)"
+
+        # echo "Msg:" "${message[@]}"
+        # continue
 
         # first, handle whatever message we just received
         local command="${message[0]:-}"

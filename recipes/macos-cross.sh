@@ -54,14 +54,14 @@ target-arch() {
     echo "$RECIPE_ARCH"
 }
 
-recipe::configure#libpng() {
+recipe::pre-configure#libpng() {
     cmake_args+=(
         -DPNG_SHARED=ON
         -DPNG_STATIC=OFF
     )
 }
 
-recipe::configure#libjpeg-turbo() {
+recipe::pre-configure#libjpeg-turbo() {
     cmake_args+=(
         -DENABLE_SHARED=TRUE
         -DENABLE_STATIC=FALSE
@@ -76,12 +76,12 @@ recipe::post-install#glib() {
         "$PREFIX/lib/libgobject-2.0.0.dylib"
 }
 
-recipe::configure#pixman() {
+recipe::pre-configure#pixman() {
     # compiling with instrinsics spits out redonkulous errors for some reason
     meson_args+=(-Da64-neon=disabled)
 }
 
-recipe::configure#librsvg() {
+recipe::pre-configure#librsvg() {
     export RUST_TARGET="${RECIPE_ARCH}-apple-darwin"
 
     case "$RECIPE_ARCH" in
@@ -116,6 +116,11 @@ recipe::post-install#librsvg() {
 
 END
 }
+
+# nerf zlib entirely, we use the system one
+recipe::configure#zlib() { true; }
+recipe::build#zlib() { true; }
+recipe::install#zlib() { true; }
 
 recipe::build-default() {
     build-project pcre2

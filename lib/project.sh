@@ -7,9 +7,11 @@ project::with-env() {
 
     # setup project env in subshell
     (
+        cd "$REPO_ROOT"
+
         # set vars
         local project_dir="$BUILD_DIR/$project"
-        local submodules="$(pwd)/submodules"
+        local submodules="$REPO_ROOT/submodules"
 
         declare -a depends
 
@@ -27,4 +29,27 @@ project::with-env() {
         # run command in project env
         "$@"
     )
+}
+
+project::lock-build() {
+    local lockfile="$BUILD_DIR/$project/.lock"
+
+    (
+        flock -xn "$fd" || die "cannot lock $lockfile"
+        "$@"
+    ) {fd}<>"$lockfile"
+}
+
+project::wait-depends() {
+    for depend in $(project::depends "$project"); do
+        [[ "$depend" == "$project" ]] && continue
+        project::wait-for "$depend"
+    done
+}
+
+project::wait-for() {
+    local depend="$1"
+    local lockfile="$BUILD_DIR/$depend/.lock"
+
+    ( flock -s "$fd" ) {fd}<>"$lockfile"
 }
