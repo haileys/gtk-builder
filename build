@@ -21,16 +21,16 @@ build-project() {
         mkdir -p build
 
         log "Preparing $project $version"
-        project-step prepare "$project"
+        project-step prepare
 
         log "Configuring $project $version"
-        project-step configure "$project"
+        project-step configure
 
         log "Building $project $version"
-        project-step build "$project"
+        project-step build
 
         log "Installing $project $version"
-        project-step install "$project"
+        project-step install
     )
 }
 
@@ -52,7 +52,6 @@ invoke-project-hook() {
 
 project-step() {
     local step="$1"
-    local project="$2"
 
     invoke-project-hook "recipe::${step}#${project}"
 
