@@ -1,5 +1,5 @@
 version="2.79.1"
-depends=(pcre2 libffi)
+depends=(libffi zlib)
 
 prepare() {
     fetch-archive \

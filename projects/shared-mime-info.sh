@@ -1,4 +1,5 @@
 version="2.4"
+depends=()
 
 # on macOS put gettext bins in PATH just for this one build.
 # we never want to link to gettext

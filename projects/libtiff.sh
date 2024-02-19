@@ -1,4 +1,5 @@
 version="4.6.0"
+depends=(zlib libjpeg-turbo)
 
 prepare() {
     fetch-archive \

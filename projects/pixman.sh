@@ -1,4 +1,5 @@
 version=0.42.2
+depends=()
 
 prepare() {
     fetch-archive \

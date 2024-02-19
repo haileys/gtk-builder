@@ -1,4 +1,5 @@
 version="1.10.8"
+depends=(glib)
 
 prepare() {
     fetch-archive \

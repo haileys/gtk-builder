@@ -1,4 +1,5 @@
 version="4.13.7"
+depends=(glib pango harfbuzz cairo fribidi gdk-pixbuf libepoxy graphene libpng libtiff libjpeg-turbo)
 
 prepare() {
     fetch-archive \

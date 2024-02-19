@@ -1,5 +1,5 @@
 version="1.18.0"
-depends=(zlib libpng fontconfig freetype glib pixman)
+depends=(zlib libpng glib pixman)
 
 prepare() {
     fetch-archive \

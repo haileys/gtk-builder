@@ -1,4 +1,5 @@
 version="2.57.91"
+depends=(libpng cairo freetype gdk-pixbuf libxml2 glib pango harfbuzz)
 
 prepare() {
     fetch-archive \

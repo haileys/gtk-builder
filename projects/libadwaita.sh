@@ -1,4 +1,5 @@
 version="git submodule"
+depends=(glib fribidi gtk pango graphene)
 
 prepare() {
     # fetch-archive \

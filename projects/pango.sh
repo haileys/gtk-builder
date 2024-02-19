@@ -1,4 +1,5 @@
 version="1.51.0"
+depends=(glib fribidi harfbuzz cairo)
 
 prepare() {
     fetch-archive \

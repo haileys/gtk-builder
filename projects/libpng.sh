@@ -1,4 +1,5 @@
 version="1.6.41"
+depends=(zlib)
 
 prepare() {
     fetch-archive \
