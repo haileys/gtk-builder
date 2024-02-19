@@ -5,33 +5,21 @@ cd "$(dirname "$0")"
 source lib/init.sh
 
 build-project() {
-    local project="$1"
-    local project_dir="$BUILD_DIR/$project"
+    project::with-env "$1" -- project-steps
+}
 
-    mkdir -p "$project_dir"
+project-steps() {
+    log "Preparing $project $version"
+    project-step prepare
 
-    log "Building $project"
-    (
-        local submodules="$(pwd)/submodules"
+    log "Configuring $project $version"
+    project-step configure
 
-        source lib/build/init.sh
-        source "projects/${project}.sh"
+    log "Building $project $version"
+    project-step build
 
-        cd "$project_dir"
-        mkdir -p build
-
-        log "Preparing $project $version"
-        project-step prepare
-
-        log "Configuring $project $version"
-        project-step configure
-
-        log "Building $project $version"
-        project-step build
-
-        log "Installing $project $version"
-        project-step install
-    )
+    log "Installing $project $version"
+    project-step install
 }
 
 check-function() {
