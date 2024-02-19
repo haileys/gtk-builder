@@ -1,4 +1,4 @@
-cmake_source_dir=""
+declare -g cmake_source_dir
 declare -g -a cmake_args
 
 cmake-project() {

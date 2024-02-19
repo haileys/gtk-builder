@@ -1,7 +1,7 @@
+declare -g autotools_source_dir
 declare -g -a autotools_args
 
 autotools-project() {
-    declare -g autotools_source_dir
     autotools_source_dir="$1"
 
     configure() {

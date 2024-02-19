@@ -1,10 +1,9 @@
-meson_source_dir=""
+declare -g meson_source_dir
 declare -g -a meson_args
 
 meson-project() {
-    local source_dir="$1"
+    meson_source_dir="$1"
 
-    meson_source_dir="$source_dir"
 
     meson-configure() {
         cd "$meson_source_dir"
