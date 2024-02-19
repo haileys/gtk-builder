@@ -4,28 +4,28 @@ declare -g -a cmake_args
 cmake-project() {
     cmake_source_dir="$1"
 
-    cmake-configure() {
-        # cd and pwd to get absolute path to cmake source dir
-        # the $(...) is a subshell so this will not have global effect
-        local source_dir="$(cd "$project_dir" && cd "$cmake_source_dir" && pwd)"
+    configure() { cmake::configure; }
+    build() { cmake::build; }
+    install() { cmake::install; }
+}
 
-        cd build
+cmake::configure() {
+    # cd and pwd to get absolute path to cmake source dir
+    # the $(...) is a subshell so this will not have global effect
+    local source_dir="$(cd "$project_dir" && cd "$cmake_source_dir" && pwd)"
 
-        cmake \
-            -DCMAKE_INSTALL_PREFIX="$PREFIX" \
-            "${cmake_args[@]}" \
-            "$source_dir"
-    }
+    cd build
 
-    cmake-build() {
-        make -C build -j "$(nproc)"
-    }
+    cmake \
+        -DCMAKE_INSTALL_PREFIX="$PREFIX" \
+        "${cmake_args[@]}" \
+        "$source_dir"
+}
 
-    cmake-install() {
-        make -C build install
-    }
+cmake::build() {
+    make -C build -j "$(nproc)"
+}
 
-    configure() { cmake-configure; }
-    build() { cmake-build; }
-    install() { cmake-install; }
+cmake::install() {
+    make -C build install
 }
